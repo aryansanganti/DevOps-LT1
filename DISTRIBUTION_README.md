@@ -16,10 +16,10 @@ This folder contains the standalone executable version of DevO Chat - your AI-po
 1. **Set up API Key** (required):
    ```cmd
    # Option 1: Environment variable
-   set GEMINI_API_KEY=your_api_key_here
+   set GROQ_API_KEY=your_api_key_here
    
    # Option 2: Create .env file
-   echo GEMINI_API_KEY=your_api_key_here > .env
+   echo GROQ_API_KEY=your_api_key_here > .env
    
    # Option 3: Use command line parameter
    devochat.exe --api-key your_api_key_here
@@ -58,7 +58,7 @@ devochat.exe --help
 
 ### 🎯 Features
 
-- **🤖 AI Assistant**: Gemini-powered code analysis and suggestions
+- **🤖 AI Assistant**: Groq-powered code analysis and suggestions
 - **📊 Repository Analysis**: Automatic language, framework, and dependency detection
 - **🔧 Auto Setup**: Automatic repository setup with `setup <repo_url>`
 - **🐳 Containerization**: Docker and deployment assistance
@@ -79,7 +79,7 @@ devochat.exe --help
 - Check if the executable was built successfully
 
 #### **"API key required"**
-- Set the GEMINI_API_KEY environment variable
+- Set the GROQ_API_KEY environment variable
 - Or create a .env file with your API key
 - Or use the --api-key parameter
 

@@ -178,7 +178,7 @@ class IntelligentAutoRepairAgent:
                 # Fix relative imports
                 (r'from \.(.+) import', r'from \1 import'),
                 # Fix missing imports
-                (r'from google\.generativeai', r'import google.generativeai as genai'),
+                (r'from groq', r'import groq'),
                 # Fix click imports
                 (r'import click', r'import click'),
                 # Fix rich imports
@@ -482,14 +482,14 @@ class IntelligentAutoRepairAgent:
             "--add-data utils.py;.",
             "--add-data auto_setup.py;.",
             "--add-data repocontainerizer.py;.",
-            "--collect-all google.generativeai",
+            "--collect-all groq",
             "--collect-all rich",
             "--collect-all click",
             "--collect-all yaml",
             "--collect-all requests",
             "--collect-all git",
             "--collect-all dotenv",
-            "--hidden-import=google.generativeai",
+            "--hidden-import=groq",
             "--hidden-import=rich",
             "--hidden-import=click",
             "--hidden-import=yaml",
@@ -667,7 +667,7 @@ This executable was created by an intelligent auto-repair agent that automatical
 
 ## 🚀 Quick Start
 1. Run `devochat.exe`
-2. Set `GEMINI_API_KEY` environment variable
+2. Set `GROQ_API_KEY` environment variable
 3. Start chatting with your AI assistant!
 
 ## 🔧 Auto-Repairs Applied

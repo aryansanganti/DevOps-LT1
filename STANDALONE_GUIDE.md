@@ -69,7 +69,7 @@ python build_standalone.py
 python repocontainerizer.py setup
 
 # Or configure manually
-python repocontainerizer.py config set api_key your_gemini_api_key
+python repocontainerizer.py config set api_key your_groq_api_key
 python repocontainerizer.py config set default_output_dir ./containers
 ```
 
@@ -154,7 +154,7 @@ Subcommands:
 python repocontainerizer.py config
 
 # Set API key
-python repocontainerizer.py config set api_key your_gemini_api_key
+python repocontainerizer.py config set api_key your_groq_api_key
 
 # Set default output directory
 python repocontainerizer.py config set default_output_dir ./containers
@@ -190,7 +190,7 @@ python repocontainerizer.py setup
 ```
 
 This command provides a guided setup process that:
-- Configures your Gemini API key
+- Configures your Groq API key
 - Sets default preferences
 - Validates your environment
 - Provides usage tips
@@ -235,7 +235,7 @@ repocontainerizer.bat
 
 ```json
 {
-  "api_key": "your_gemini_api_key",
+  "api_key": "your_groq_api_key",
   "default_output_dir": "./output",
   "default_format": "yaml",
   "validate_by_default": false,
@@ -247,7 +247,7 @@ repocontainerizer.bat
 ### Environment Variables
 
 You can also use environment variables:
-- `GEMINI_API_KEY`: Your Gemini API key
+- `GROQ_API_KEY`: Your Groq API key
 - `REPOCONTAINERIZER_OUTPUT`: Default output directory
 - `REPOCONTAINERIZER_FORMAT`: Default format (yaml/json)
 
@@ -316,7 +316,7 @@ jobs:
         run: |
           python repocontainerizer.py containerize https://github.com/${{ github.repository }}
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 ```
 
 ### Custom Templates
@@ -357,7 +357,7 @@ You can extend the tool by modifying the Dockerfile templates in the code or by 
 python repocontainerizer.py config set api_key your_api_key
 
 # Or use environment variable
-export GEMINI_API_KEY=your_api_key
+export GROQ_API_KEY=your_api_key
 ```
 
 #### "Repository not found"
@@ -498,7 +498,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Inspired by modern CLI tools like Warp
 - Built with Python and love for automation
 - Thanks to the open-source community
-- Powered by Google Gemini API
+- Powered by Groq API
 
 ---
 

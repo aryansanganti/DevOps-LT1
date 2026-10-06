@@ -32,7 +32,7 @@ a = Analysis(
         ('pyproject.toml', '.'),
     ],
     hiddenimports=[
-        'google.generativeai',
+        'groq',
         'google.ai.generativelanguage',
         'google.ai.generativelanguage_v1beta',
         'google.auth',
@@ -116,7 +116,7 @@ def create_build_requirements():
     build_requirements = """
 # Build requirements for DevO Chat standalone executable
 pyinstaller==6.3.0
-google-generativeai>=0.3.0
+groq>=0.9.0
 rich>=13.0.0
 click>=8.0.0
 python-dotenv>=1.0.0
@@ -243,11 +243,11 @@ if not exist "devochat.exe" (
 )
 
 REM Check for API key
-if "%GEMINI_API_KEY%"=="" (
-    echo WARNING: GEMINI_API_KEY environment variable not set
+if "%GROQ_API_KEY%"=="" (
+    echo WARNING: GROQ_API_KEY environment variable not set
     echo You can:
-    echo 1. Set environment variable: set GEMINI_API_KEY=your_key_here
-    echo 2. Create .env file with: GEMINI_API_KEY=your_key_here
+    echo 1. Set environment variable: set GROQ_API_KEY=your_key_here
+    echo 2. Create .env file with: GROQ_API_KEY=your_key_here
     echo 3. Use --api-key parameter: devochat.exe --api-key your_key_here
     echo.
 )
@@ -290,10 +290,10 @@ This folder contains the standalone executable version of DevO Chat - your AI-po
 1. **Set up API Key** (required):
    ```cmd
    # Option 1: Environment variable
-   set GEMINI_API_KEY=your_api_key_here
+   set GROQ_API_KEY=your_api_key_here
    
    # Option 2: Create .env file
-   echo GEMINI_API_KEY=your_api_key_here > .env
+   echo GROQ_API_KEY=your_api_key_here > .env
    
    # Option 3: Use command line parameter
    devochat.exe --api-key your_api_key_here
@@ -332,7 +332,7 @@ devochat.exe --help
 
 ### 🎯 Features
 
-- **🤖 AI Assistant**: Gemini-powered code analysis and suggestions
+- **🤖 AI Assistant**: Groq-powered code analysis and suggestions
 - **📊 Repository Analysis**: Automatic language, framework, and dependency detection
 - **🔧 Auto Setup**: Automatic repository setup with `setup <repo_url>`
 - **🐳 Containerization**: Docker and deployment assistance
@@ -353,7 +353,7 @@ devochat.exe --help
 - Check if the executable was built successfully
 
 #### **"API key required"**
-- Set the GEMINI_API_KEY environment variable
+- Set the GROQ_API_KEY environment variable
 - Or create a .env file with your API key
 - Or use the --api-key parameter
 
@@ -388,8 +388,8 @@ def create_env_example():
     env_content = """# DevO Chat Environment Configuration
 # Copy this file to .env and add your API key
 
-# Required: Your Gemini API key
-GEMINI_API_KEY=your_gemini_api_key_here
+# Required: Your Groq API key
+GROQ_API_KEY=your_groq_api_key_here
 
 # Optional: Default repository path
 # DEFAULT_REPO_PATH=.

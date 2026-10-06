@@ -971,7 +971,7 @@ class RepoContainerizer:
         self.analyzer = RepositoryAnalyzer(self.config, self.logger)
         
         # Setup API key
-        self.api_key = self.config.get("api_key") or os.getenv("GEMINI_API_KEY")
+        self.api_key = self.config.get("api_key") or os.getenv("GROQ_API_KEY")
     
     def display_banner(self):
         """Display application banner"""
@@ -1011,7 +1011,7 @@ OPTIONS:
     --validate                 Validate container after generation
     --execute, -e              Execute generated setup script (auto-setup only)
     --verbose, -v              Verbose output
-    --api-key <key>            Gemini API key (overrides config)
+    --api-key <key>            Groq API key (overrides config)
 
 EXAMPLES:
     repocontainerizer containerize https://github.com/owner/repo
@@ -1053,9 +1053,9 @@ For more information, visit: https://github.com/your-username/repocontainerizer
         
         if update_key:
             if RICH_AVAILABLE:
-                api_key = Prompt.ask("Enter your Gemini API key", password=True)
+                api_key = Prompt.ask("Enter your Groq API key", password=True)
             else:
-                api_key = input("Enter your Gemini API key: ")
+                api_key = input("Enter your Groq API key: ")
             
             if api_key:
                 self.config.set("api_key", api_key)
@@ -2060,7 +2060,7 @@ Examples:
                           help="Output directory for generated files")
         parser.add_argument("--validate", action="store_true", 
                           help="Validate generated Docker configuration")
-        parser.add_argument("--api-key", help="Gemini API key")
+        parser.add_argument("--api-key", help="Groq API key")
         parser.add_argument("--config", help="Path to configuration file")
         parser.add_argument("--format", choices=["yaml", "json"], default="yaml",
                           help="Output format for configuration files")
@@ -2069,7 +2069,7 @@ Examples:
         
         # Set API key if provided
         if args.api_key:
-            os.environ["GEMINI_API_KEY"] = args.api_key
+            os.environ["GROQ_API_KEY"] = args.api_key
         
         # Initialize containerizer
         containerizer = RepoContainerizer()

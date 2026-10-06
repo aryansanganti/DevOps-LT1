@@ -701,10 +701,10 @@ advanced_agent.log
             "--noconfirm",
             "--strip",
             "--add-data sample-config.yml;.",
-            "--collect-all google.generativeai",
+            "--collect-all groq",
             "--collect-all rich",
             "--collect-all click",
-            "--hidden-import=google.generativeai",
+            "--hidden-import=groq",
             "--hidden-import=rich",
             "--hidden-import=click",
             "chat.py"
@@ -820,7 +820,7 @@ This executable was built by an advanced AI-powered code editor agent featuring:
 
 ## 🚀 Usage
 1. Run `devochat_advanced.exe`
-2. Set environment variable: `GEMINI_API_KEY=your_key_here`
+2. Set environment variable: `GROQ_API_KEY=your_key_here`
 3. Enjoy the AI-powered development experience!
 
 ## 🎯 Quality Metrics

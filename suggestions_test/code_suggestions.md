@@ -257,7 +257,7 @@ Okay, here's a security-focused review of the provided `example.py` code, along 
 
 *   **Description:** The API key is hardcoded directly in the script. This is a critical security vulnerability. If the script is committed to a public repository or shared, the API key will be exposed, potentially leading to unauthorized use and charges.
 *   **Severity:** Critical
-*   **Code Location:** `api_key = "AIzaSyAwxg1aGIsvBSb17SAE-lFTz_Bh-lIDvrI"`
+*   **Code Location:** `api_key = "[REDACTED_API_KEY]"`
 *   **Recommended Fix:**  Retrieve the API key from an environment variable.
 
 ```python
@@ -268,11 +268,11 @@ import os
 def main():
     """Example usage of RepoContainerizer"""
     # Set the API key from environment variable
-    api_key = os.environ.get("GEMINI_API_KEY") # Or a more specific name
+    api_key = os.environ.get("GROQ_API_KEY") # Or a more specific name
 
     if not api_key:
-        print("Error: GEMINI_API_KEY environment variable not set.")
-        print("Please set the GEMINI_API_KEY environment variable with your API key.")
+        print("Error: GROQ_API_KEY environment variable not set.")
+        print("Please set the GROQ_API_KEY environment variable with your API key.")
         return  # Exit if the API key is not set
 
     # ... rest of the code ...
@@ -948,11 +948,11 @@ import os
 # ... existing code ...
 
     def __init__(self):
-        self.api_key = os.environ.get("GEMINI_API_KEY")
+        self.api_key = os.environ.get("GROQ_API_KEY")
         if not self.api_key:
-            raise ValueError("GEMINI_API_KEY environment variable not set")
+            raise ValueError("GROQ_API_KEY environment variable not set")
         genai.configure(api_key=self.api_key)
-        self.model = "gemini-2.0-flash-exp"
+        self.model = "groq-2.0-flash-exp"
         self.temp_dir = None
 ```
 

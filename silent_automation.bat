@@ -93,14 +93,14 @@ call uv run pyinstaller ^
     --add-data "utils.py;." ^
     --add-data "auto_setup.py;." ^
     --add-data "repocontainerizer.py;." ^
-    --collect-all google.generativeai ^
+    --collect-all groq ^
     --collect-all rich ^
     --collect-all click ^
     --collect-all yaml ^
     --collect-all requests ^
     --collect-all git ^
     --collect-all dotenv ^
-    --hidden-import=google.generativeai ^
+    --hidden-import=groq ^
     --hidden-import=rich ^
     --hidden-import=click ^
     --hidden-import=yaml ^
@@ -170,7 +170,7 @@ echo # DevO Chat - Ready to Use > "release\README.md"
 echo. >> "release\README.md"
 echo ## Quick Start >> "release\README.md"
 echo 1. Run devochat.exe >> "release\README.md"
-echo 2. Set GEMINI_API_KEY environment variable >> "release\README.md"
+echo 2. Set GROQ_API_KEY environment variable >> "release\README.md"
 echo 3. Start chatting with your AI assistant! >> "release\README.md"
 echo. >> "release\README.md"
 echo ## Commands >> "release\README.md"

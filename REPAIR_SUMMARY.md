@@ -9,8 +9,8 @@
 - ✅ Integrated with uv for fast dependency resolution
 
 ### 2. **API Integration Issues**
-- ✅ Fixed Google Generative AI import (`google.generativeai` instead of `google.genai`)
-- ✅ Updated API calls to use current `google.generativeai` API
+- ✅ Fixed Google Generative AI import (`groq` instead of `google.genai`)
+- ✅ Updated API calls to use current `groq` API
 - ✅ Fixed model initialization and content generation
 - ✅ Removed deprecated `Client` usage
 
@@ -50,7 +50,7 @@
 uv sync
 
 # Set API key
-set GEMINI_API_KEY=your_api_key_here
+set GROQ_API_KEY=your_api_key_here
 
 # Run main tool
 uv run python repo_containerizer.py containerize https://github.com/owner/repo

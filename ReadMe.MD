@@ -4,7 +4,7 @@ An advanced LLM-powered AI agent tool that automates the process of understandin
 
 ## Features
 
-- **🤖 AI-Powered Analysis**: Uses Google's Gemini API to intelligently analyze repository structure and tech stack
+- **🤖 AI-Powered Analysis**: Uses Groq to intelligently analyze repository structure and tech stack
 - **📦 Automatic Containerization**: Generates optimized Dockerfiles with security best practices
 - **🔧 Multi-Language Support**: Supports Python, JavaScript/TypeScript, Java, Go, and more
 - **🎯 Framework Detection**: Recognizes popular frameworks like Django, Flask, Express, Next.js, Spring, etc.
@@ -21,7 +21,7 @@ An advanced LLM-powered AI agent tool that automates the process of understandin
 - Git
 - **uv** (recommended) or pip
 - Docker (optional, for validation)
-- Google Gemini API key
+- Groq API key
 
 ### Quick Setup with uv (Recommended)
 
@@ -40,10 +40,10 @@ uv sync
 # Set up API key (choose one method)
 # Method 1: Create .env file (recommended)
 copy .env.example .env
-# Edit .env and add your API key: GEMINI_API_KEY=your_api_key_here
+# Edit .env and set GROQ_API_KEY and GROQ_MODEL from .env.example
 
 # Method 2: Environment variable (temporary)
-set GEMINI_API_KEY=your_api_key_here
+set GROQ_API_KEY=your_api_key_here
 
 # Run the tool
 uv run python repo_containerizer.py --help
@@ -64,10 +64,10 @@ uv sync
 # Set up API key (choose one method)
 # Method 1: Create .env file (recommended)
 cp .env.example .env
-# Edit .env and add your API key: GEMINI_API_KEY=your_api_key_here
+# Edit .env and set GROQ_API_KEY and GROQ_MODEL from .env.example
 
 # Method 2: Environment variable (temporary)
-export GEMINI_API_KEY=your_api_key_here
+export GROQ_API_KEY=your_api_key_here
 
 # Run the tool
 uv run python repo_containerizer.py --help
@@ -89,7 +89,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 
 # Set API key
-set GEMINI_API_KEY=your_api_key_here
+set GROQ_API_KEY=your_api_key_here
 ```
 
 #### Linux/Mac
@@ -106,7 +106,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Set API key
-export GEMINI_API_KEY=your_api_key_here
+export GROQ_API_KEY=your_api_key_here
 ```
 
 ## Usage
@@ -254,16 +254,17 @@ Next Steps:
 
 ### Environment Variables
 
-- `GEMINI_API_KEY`: Your Google Gemini API key (required)
+- `GROQ_API_KEY`: Your Groq API key (required)
+- `GROQ_MODEL`: Groq model ID (optional; defaults to `qwen/qwen3.8-27b`)
 
 ### API Key Setup
 
-1. Get your Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+1. Create a Groq API key in the [Groq Console](https://console.groq.com/keys)
 2. Set the environment variable:
    ```bash
    # Linux/Mac
-   export GEMINI_API_KEY=your_api_key_here
+   export GROQ_API_KEY=your_api_key_here
    
    # Windows
-   set GEMINI_API_KEY=your_api_key_here
+   set GROQ_API_KEY=your_api_key_here
    ```

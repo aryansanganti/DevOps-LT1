@@ -31,7 +31,7 @@ DevO-Hackfinity/
 ## 🚀 Key Features
 
 ### 1. **AI-Powered Analysis**
-- Uses Google Gemini API for intelligent repository analysis
+- Uses Groq API for intelligent repository analysis
 - Detects programming languages, frameworks, and dependencies
 - Generates optimized containerization configurations
 
@@ -106,7 +106,7 @@ chmod +x setup.sh
 ### Manual Setup
 ```bash
 pip install -r requirements.txt
-export GEMINI_API_KEY=your_api_key_here
+export GROQ_API_KEY=your_api_key_here
 ```
 
 ## 📊 Generated Output
@@ -129,7 +129,7 @@ The tool creates these files in the output directory:
    - Identifies tech stacks and frameworks
 
 2. **AI Integration**
-   - Uses Google Gemini API for intelligent analysis
+   - Uses Groq API for intelligent analysis
    - Generates context-aware containerization strategies
    - Provides fallback analysis for offline scenarios
 
@@ -186,7 +186,7 @@ Enables LLMs and agents to run and test code automatically.
 
 ## 🚀 Getting Started
 
-1. Set your API key: `set GEMINI_API_KEY=your_key`
+1. Set your API key: `set GROQ_API_KEY=your_key`
 2. Install dependencies: `pip install -r requirements.txt`
 3. Run the tool: `python repo_containerizer.py containerize https://github.com/owner/repo`
 4. Check the output directory for generated files

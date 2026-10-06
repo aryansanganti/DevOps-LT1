@@ -244,10 +244,10 @@ You: setup https://github.com/awesome-dev/flask-api.git
 ### **Environment Variables**
 ```bash
 # Set API key for AI features
-export GEMINI_API_KEY=your_api_key_here
+export GROQ_API_KEY=your_api_key_here
 
 # Or create .env file
-echo "GEMINI_API_KEY=your_api_key_here" > .env
+echo "GROQ_API_KEY=your_api_key_here" > .env
 ```
 
 ### **Command Line Options**

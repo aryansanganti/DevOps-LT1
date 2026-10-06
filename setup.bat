@@ -40,8 +40,8 @@ REM Set up environment variable
 echo.
 echo Setup complete!
 echo.
-echo To use RepoContainerizer, set your Gemini API key:
-echo set GEMINI_API_KEY=your_api_key_here
+echo To use RepoContainerizer, set your Groq API key:
+echo set GROQ_API_KEY=your_api_key_here
 echo.
 echo Then run:
 echo python repo_containerizer.py --help

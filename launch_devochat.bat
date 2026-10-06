@@ -17,11 +17,11 @@ if not exist "devochat.exe" (
 )
 
 REM Check for API key
-if "%GEMINI_API_KEY%"=="" (
-    echo WARNING: GEMINI_API_KEY environment variable not set
+if "%GROQ_API_KEY%"=="" (
+    echo WARNING: GROQ_API_KEY environment variable not set
     echo You can:
-    echo 1. Set environment variable: set GEMINI_API_KEY=your_key_here
-    echo 2. Create .env file with: GEMINI_API_KEY=your_key_here
+    echo 1. Set environment variable: set GROQ_API_KEY=your_key_here
+    echo 2. Create .env file with: GROQ_API_KEY=your_key_here
     echo 3. Use --api-key parameter: devochat.exe --api-key your_key_here
     echo.
 )

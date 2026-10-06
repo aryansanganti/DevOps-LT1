@@ -40,10 +40,10 @@ uv run python chat.py --repo-path .
 Make sure your API key is configured:
 ```bash
 # Set environment variable
-export GEMINI_API_KEY=your_api_key_here
+export GROQ_API_KEY=your_api_key_here
 
 # Or create .env file
-echo "GEMINI_API_KEY=your_api_key_here" > .env
+echo "GROQ_API_KEY=your_api_key_here" > .env
 ```
 
 ### **3. First Conversation**

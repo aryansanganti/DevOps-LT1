@@ -6,11 +6,11 @@ echo ===============================================
 echo.
 
 REM Check if API key is set
-if "%GEMINI_API_KEY%"=="" (
-    echo ❌ GEMINI_API_KEY environment variable is not set
+if "%GROQ_API_KEY%"=="" (
+    echo ❌ GROQ_API_KEY environment variable is not set
     echo.
     echo Please set your API key:
-    echo set GEMINI_API_KEY=your_api_key_here
+    echo set GROQ_API_KEY=your_api_key_here
     echo.
     echo Then run this script again.
     pause

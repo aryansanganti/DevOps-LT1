@@ -144,14 +144,14 @@ class DevOPipeline:
             "--add-data utils.py;.",
             "--add-data auto_setup.py;.",
             "--add-data repocontainerizer.py;.",
-            "--collect-all google.generativeai",
+            "--collect-all groq",
             "--collect-all rich",
             "--collect-all click",
             "--collect-all yaml",
             "--collect-all requests",
             "--collect-all git",
             "--collect-all dotenv",
-            "--hidden-import=google.generativeai",
+            "--hidden-import=groq",
             "--hidden-import=rich",
             "--hidden-import=click",
             "--hidden-import=yaml",
@@ -232,7 +232,7 @@ class DevOPipeline:
 
 ## Quick Start
 1. Run `devochat.exe` or use `launch_devochat.bat`
-2. Set your Gemini API key as environment variable: `GEMINI_API_KEY`
+2. Set your Groq API key as environment variable: `GROQ_API_KEY`
 3. Start chatting with the AI assistant!
 
 ## Build Information
@@ -252,7 +252,7 @@ class DevOPipeline:
 ✅ Repository analysis with AI suggestions  
 ✅ Auto setup (clone repos + install dependencies)
 ✅ Containerization (Docker file generation)
-✅ AI-powered code suggestions using Gemini
+✅ AI-powered code suggestions using Groq
 ✅ Dependency management and error fixing
 ✅ Session management (save/load conversations)
 ✅ Rich terminal UI with progress indicators

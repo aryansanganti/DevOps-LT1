@@ -3,8 +3,8 @@ from PyInstaller.utils.hooks import collect_all
 
 datas = [('sample-config.yml', '.'), ('templates.py', '.'), ('utils.py', '.'), ('auto_setup.py', '.'), ('repocontainerizer.py', '.')]
 binaries = []
-hiddenimports = ['google.generativeai', 'rich', 'click', 'yaml', 'requests', 'git', 'dotenv', 'os', 'sys', 'json', 'subprocess', 'pathlib']
-tmp_ret = collect_all('google.generativeai')
+hiddenimports = ['groq', 'rich', 'click', 'yaml', 'requests', 'git', 'dotenv', 'os', 'sys', 'json', 'subprocess', 'pathlib']
+tmp_ret = collect_all('groq')
 datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 tmp_ret = collect_all('rich')
 datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]

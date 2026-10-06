@@ -200,7 +200,7 @@ The tool stores configuration in:
 
 - Internet connection for GitHub repository access
 - Docker (optional, for validation)
-- Gemini API key (get from https://makersuite.google.com/app/apikey)
+- Groq API key (create one at https://console.groq.com/keys)
 
 ## Support
 

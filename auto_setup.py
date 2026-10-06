@@ -1,36 +1,33 @@
-    from dotenv import load_dotenv
-    import argparse
-from pathlib import Path
-from rich.console import Console
-from rich.markdown import Markdown
-from rich.panel import Panel
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
-from rich.table import Table
-from rich.text import Text
-from typing import Dict, List, Optional, Tuple
-from urllib.parse import urlparse
-import google.generativeai as genai
-import json
-import os
-import re
-import shutil
-import subprocess
-import sys
-import tempfile
-
 #!/usr/bin/env python3
 """
 Auto Setup Module - Automatic Repository Setup and Dependency Correction
 Handles cloning, dependency installation, error detection, and automatic fixes
 """
 
+import argparse
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+from typing import Dict, Optional
+from urllib.parse import urlparse
 
+from groq_client import create_groq_client, generate_text
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.panel import Panel
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
+from rich.table import Table
 
 # Load environment variables
 try:
+    from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
-    self.log(f"Exception occurred: {e}", "ERROR")
+    pass
 
 console = Console()
 
@@ -38,13 +35,12 @@ class AutoSetupManager:
     """Handles automatic repository setup, dependency correction, and error fixing"""
     
     def __init__(self, api_key: str = None):
-        self.api_key = api_key or os.getenv('GEMINI_API_KEY')
+        self.api_key = api_key or os.getenv('GROQ_API_KEY')
         self.setup_history = []
         self.error_fixes = []
         
         if self.api_key:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel("gemini-2.5-flash")
+            self.model = create_groq_client(self.api_key)
         else:
             self.model = None
             console.print("[yellow]⚠️  No API key available. AI-powered fixes will be disabled.[/yellow]")
@@ -107,8 +103,9 @@ class AutoSetupManager:
             
             # Remove existing directory if it exists
             if target_path.exists():
-                console.print(f"[yellow]📁 Directory {target_path} already exists,
-                    removing...[/yellow]")
+                console.print(
+                    f"[yellow]📁 Directory {target_path} already exists, removing...[/yellow]"
+                )
                 shutil.rmtree(target_path)
             
             # Clone repository
@@ -446,16 +443,16 @@ class AutoSetupManager:
             Format your response as actionable steps.
             """
             
-            response = self.model.generate_content(prompt)
+            response = generate_text(self.model, prompt)
             
             console.print(Panel(
-                Markdown(response.text),
+                Markdown(response),
                 title="🤖 AI Dependency Analysis",
                 border_style="blue"
             ))
             
             # Try to extract and execute fix commands
-            self._execute_ai_fixes(response.text)
+            self._execute_ai_fixes(response)
             
         except Exception as e:
             console.print(f"[red]❌ AI dependency fix failed: {e}[/red]")
@@ -485,16 +482,16 @@ class AutoSetupManager:
             Format your response as actionable steps.
             """
             
-            response = self.model.generate_content(prompt)
+            response = generate_text(self.model, prompt)
             
             console.print(Panel(
-                Markdown(response.text),
+                Markdown(response),
                 title="🤖 AI Dependency Analysis",
                 border_style="blue"
             ))
             
             # Try to extract and execute fix commands
-            self._execute_ai_fixes(response.text)
+            self._execute_ai_fixes(response)
             
         except Exception as e:
             console.print(f"[red]❌ AI dependency fix failed: {e}[/red]")
@@ -617,10 +614,9 @@ class AutoSetupManager:
             Please provide the corrected code.
             """
             
-            response = self.model.generate_content(prompt)
-            
+            response = generate_text(self.model, prompt)
             # Extract corrected code
-            corrected_code = re.search(r'```python\n(.*?)\n```', response.text, re.DOTALL)
+            corrected_code = re.search(r'```python\n(.*?)\n```', response, re.DOTALL)
             if corrected_code:
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(corrected_code.group(1))
@@ -806,7 +802,7 @@ def main():
     parser = argparse.ArgumentParser(description='Auto Setup Repository')
     parser.add_argument('repo_url', help='Repository URL to setup')
     parser.add_argument('--target-dir', help='Target directory for cloning')
-    parser.add_argument('--api-key', help='Gemini API key for AI fixes')
+    parser.add_argument('--api-key', help='Groq API key for AI fixes')
     
     args = parser.parse_args()
     

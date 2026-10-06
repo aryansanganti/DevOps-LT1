@@ -2,7 +2,7 @@
 
 ## Overview
 
-DevO Chat is an interactive AI assistant that helps developers with code analysis, suggestions, dependency management, and DevOps tasks. It provides a conversational interface to the powerful Gemini LLM for repository analysis and development assistance.
+DevO Chat is an interactive AI assistant that helps developers with code analysis, suggestions, dependency management, and DevOps tasks. It provides a conversational interface to the powerful Groq LLM for repository analysis and development assistance.
 
 ## Features
 
@@ -162,15 +162,15 @@ DevO: Based on your codebase analysis, here are performance optimizations...
 ## Configuration
 
 ### Environment Variables
-- `GEMINI_API_KEY`: Your Google Gemini API key (required)
+- `GROQ_API_KEY`: Your Groq API key (required)
 
 ### API Key Setup
 ```bash
 # Set environment variable
-export GEMINI_API_KEY=your_api_key_here
+export GROQ_API_KEY=your_api_key_here
 
 # Or create .env file
-echo "GEMINI_API_KEY=your_api_key_here" > .env
+echo "GROQ_API_KEY=your_api_key_here" > .env
 ```
 
 ## Advanced Usage
@@ -199,9 +199,9 @@ uv run python chat.py --repo-path . --save-session < analysis_commands.txt
 
 1. **API Key Not Found**
    ```
-   ❌ API key required. Set GEMINI_API_KEY environment variable
+   ❌ API key required. Set GROQ_API_KEY environment variable
    ```
-   **Solution**: Set the `GEMINI_API_KEY` environment variable or create a `.env` file
+   **Solution**: Set the `GROQ_API_KEY` environment variable or create a `.env` file
 
 2. **Repository Context Error**
    ```

@@ -29,8 +29,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.syntax import Syntax
 from rich.prompt import Prompt, Confirm
 import git
-import google.generativeai as genai
-from google.generativeai import types
+from groq_client import create_groq_client, generate_text, get_groq_model
 
 # Load environment variables from .env file
 try:
@@ -84,9 +83,8 @@ class RepoContainerizer:
     
     def __init__(self, api_key: str):
         self.api_key = api_key
-        if api_key:
-            genai.configure(api_key=api_key)
-        self.model = "gemini-2.5-flash"
+        self.client = create_groq_client(api_key) if api_key else None
+        self.model = get_groq_model()
         self.temp_dir = None
         
     def clone_repository(self, repo_url: str) -> str:
@@ -309,9 +307,12 @@ class RepoContainerizer:
         """
         
         try:
-            # Generate content using the current API
-            model = genai.GenerativeModel(
-                model_name=self.model,
+            if self.client is None:
+                raise ValueError("GROQ_API_KEY is required for AI analysis.")
+            response_text = generate_text(
+                self.client,
+                analysis_prompt,
+                model=self.model,
                 system_instruction="""You are an expert DevOps engineer specializing in containerization. 
                 Refine and optimize Docker configurations with security best practices,
                     performance optimizations, 
@@ -320,11 +321,8 @@ class RepoContainerizer:
                 IMPORTANT: You must respond with valid JSON only. Do not include any markdown formatting, 
                 code blocks, or explanatory text. Just return the raw JSON object."""
             )
-            
-            response = model.generate_content(analysis_prompt)
-            
             # Clean up the response text (remove markdown formatting if present)
-            response_text = response.text.strip()
+            response_text = response_text.strip()
             if response_text.startswith("```json"):
                 response_text = response_text[7:]  # Remove ```json
             if response_text.endswith("```"):
@@ -671,12 +669,12 @@ def cli():
 @click.option('--format', '-f', type=click.Choice(['yaml', 'json']), default='yaml',
     help='Config file format')
 @click.option('--validate', is_flag=True, help='Validate container by building it')
-@click.option('--api-key', envvar='GEMINI_API_KEY', help='Gemini API key (or set GEMINI_API_KEY env var)')
+@click.option('--api-key', envvar='GROQ_API_KEY', help='Groq API key (or set GROQ_API_KEY env var)')
 def containerize(repo_url, output, format, validate, api_key):
     """Containerize a GitHub repository"""
     
     if not api_key:
-        console.print("❌ API key required. Set GEMINI_API_KEY environment variable or use --api-key option.")
+        console.print("❌ API key required. Set GROQ_API_KEY environment variable or use --api-key option.")
         sys.exit(1)
     
     # Display banner
@@ -792,20 +790,20 @@ def setup():
         sys.exit(1)
     
     # Check API key
-    api_key = os.getenv('GEMINI_API_KEY')
+    api_key = os.getenv('GROQ_API_KEY')
     if not api_key:
-        console.print("⚠️  GEMINI_API_KEY environment variable not set")
-        console.print("Please set your Gemini API key:")
-        console.print("  export GEMINI_API_KEY=your_api_key_here")
+        console.print("⚠️  GROQ_API_KEY environment variable not set")
+        console.print("Please set your Groq API key:")
+        console.print("  export GROQ_API_KEY=your_groq_api_key_here")
     else:
-        console.print("✅ GEMINI_API_KEY is configured")
+        console.print("✅ GROQ_API_KEY is configured")
     
     console.print("\n🎉 Setup complete! Ready to containerize repositories.")
 
 @cli.command()
 @click.argument('repo_path')
-@click.option('--api-key', envvar='GEMINI_API_KEY',
-    help='Gemini API key (or set GEMINI_API_KEY env var)')
+@click.option('--api-key', envvar='GROQ_API_KEY',
+    help='Groq API key (or set GROQ_API_KEY env var)')
 @click.option('--output', '-o', default='./suggestions', help='Output directory for suggestions')
 @click.option('--language', '-l', help='Programming language filter')
 @click.option('--focus', '-f', type=click.Choice(['security', 'performance', 'maintainability', 'all']), 
@@ -814,7 +812,7 @@ def suggest(repo_path, api_key, output, language, focus):
     """Get AI-powered code suggestions for a repository"""
     
     if not api_key:
-        console.print("❌ API key required. Set GEMINI_API_KEY environment variable or use --api-key option.")
+        console.print("❌ API key required. Set GROQ_API_KEY environment variable or use --api-key option.")
         sys.exit(1)
     
     console.print(Panel.fit(
@@ -849,7 +847,7 @@ def suggest(repo_path, api_key, output, language, focus):
 
 @cli.command()
 @click.argument('repo_path')
-@click.option('--api-key', envvar='GEMINI_API_KEY', help='Gemini API key (or set GEMINI_API_KEY env var)')
+@click.option('--api-key', envvar='GROQ_API_KEY', help='Groq API key (or set GROQ_API_KEY env var)')
 @click.option('--output', '-o', default='./dependency_report', help='Output directory for reports')
 @click.option('--fix', '-f', is_flag=True, help='Automatically fix detected issues')
 @click.option('--format', type=click.Choice(['markdown', 'json', 'yaml']), default='markdown', 
@@ -858,7 +856,7 @@ def check_deps(repo_path, api_key, output, fix, format):
     """Check and report missing dependencies"""
     
     if not api_key:
-        console.print("❌ API key required. Set GEMINI_API_KEY environment variable or use --api-key option.")
+        console.print("❌ API key required. Set GROQ_API_KEY environment variable or use --api-key option.")
         sys.exit(1)
     
     console.print(Panel.fit(
@@ -927,7 +925,7 @@ def check_deps(repo_path, api_key, output, fix, format):
 
 @cli.command()
 @click.argument('repo_path')
-@click.option('--api-key', envvar='GEMINI_API_KEY', help='Gemini API key (or set GEMINI_API_KEY env var)')
+@click.option('--api-key', envvar='GROQ_API_KEY', help='Groq API key (or set GROQ_API_KEY env var)')
 @click.option('--output', '-o', default='./fix_report', help='Output directory for fix reports')
 @click.option('--dry-run', is_flag=True, help='Show what would be fixed without making changes')
 @click.option('--backup', is_flag=True, default=True, help='Create backup before fixing')
@@ -935,7 +933,7 @@ def fix_code(repo_path, api_key, output, dry_run, backup):
     """Automatically fix common code issues using AI"""
     
     if not api_key:
-        console.print("❌ API key required. Set GEMINI_API_KEY environment variable or use --api-key option.")
+        console.print("❌ API key required. Set GROQ_API_KEY environment variable or use --api-key option.")
         sys.exit(1)
     
     console.print(Panel.fit(
@@ -984,7 +982,7 @@ def fix_code(repo_path, api_key, output, dry_run, backup):
 
 @cli.command()
 @click.argument('repo_path')
-@click.option('--api-key', envvar='GEMINI_API_KEY', help='Gemini API key (or set GEMINI_API_KEY env var)')
+@click.option('--api-key', envvar='GROQ_API_KEY', help='Groq API key (or set GROQ_API_KEY env var)')
 @click.option('--output', '-o', default='./analysis_report',
     help='Output directory for analysis report')
 @click.option('--include-suggestions', is_flag=True, help='Include code suggestions in report')
@@ -994,7 +992,7 @@ def analyze(repo_path, api_key, output, include_suggestions, include_dependencie
     """Comprehensive AI-powered repository analysis"""
     
     if not api_key:
-        console.print("❌ API key required. Set GEMINI_API_KEY environment variable or use --api-key option.")
+        console.print("❌ API key required. Set GROQ_API_KEY environment variable or use --api-key option.")
         sys.exit(1)
     
     console.print(Panel.fit(
@@ -1067,9 +1065,8 @@ class CodeSuggester:
     
     def __init__(self, api_key: str):
         self.api_key = api_key
-        if api_key:
-            genai.configure(api_key=api_key)
-        self.model = "gemini-2.5-flash"
+        self.client = create_groq_client(api_key) if api_key else None
+        self.model = get_groq_model()
     
     def analyze_and_suggest(self, repo_path: str, language: str = None, focus: str = "all") -> str:
         """Analyze code and generate suggestions"""
@@ -1136,8 +1133,22 @@ class CodeSuggester:
     def _analyze_file(self, file_path: str, content: str, focus: str) -> Dict:
         """Analyze a single file and generate suggestions"""
         try:
-            model = genai.GenerativeModel(
-                model_name=self.model,
+            if self.client is None:
+                raise ValueError("GROQ_API_KEY is required for code suggestions.")
+            suggestions = generate_text(
+                self.client,
+                f"""
+Analyze this code file and provide improvement suggestions:
+
+File: {file_path}
+
+```
+{content[:5000]}  # Limit content to avoid token limits
+```
+
+Please provide structured suggestions focusing on {focus} improvements.
+""",
+                model=self.model,
                 system_instruction=f"""You are an expert code reviewer. Analyze the provided code and give specific, actionable suggestions.
 
 Focus areas: {focus}
@@ -1152,24 +1163,10 @@ For each suggestion, provide:
 Be concise but thorough. Focus on practical improvements."""
             )
             
-            prompt = f"""
-Analyze this code file and provide improvement suggestions:
-
-File: {file_path}
-
-```
-{content[:5000]}  # Limit content to avoid token limits
-```
-
-Please provide structured suggestions focusing on {focus} improvements.
-"""
-            
-            response = model.generate_content(prompt)
-            
             return {
                 'file': file_path,
                 'content': content[:200] + '...' if len(content) > 200 else content,
-                'suggestions': response.text
+                'suggestions': suggestions
             }
             
         except Exception as e:
@@ -1225,13 +1222,13 @@ Analyzed {len(suggestions)} files and generated improvement suggestions.
 
 @cli.command()
 @click.option('--repo-path', '-r', help='Path to repository for analysis')
-@click.option('--api-key', envvar='GEMINI_API_KEY', help='Gemini API key (or set GEMINI_API_KEY env var)')
+@click.option('--api-key', envvar='GROQ_API_KEY', help='Groq API key (or set GROQ_API_KEY env var)')
 @click.option('--save-session', is_flag=True, help='Save chat session to file')
 def chat(repo_path, api_key, save_session):
     """Start interactive chat with DevO AI assistant"""
     
     if not api_key:
-        console.print("❌ API key required. Set GEMINI_API_KEY environment variable or use --api-key option.")
+        console.print("❌ API key required. Set GROQ_API_KEY environment variable or use --api-key option.")
         sys.exit(1)
     
     from chat import DevOChatSession

@@ -103,18 +103,18 @@ def test_api_connection():
     """Test API connection (optional, requires API key)"""
     print("\nTesting API connection...")
     
-    api_key = os.getenv('GEMINI_API_KEY')
+    api_key = os.getenv('GROQ_API_KEY')
     if not api_key:
-        print("⚠️  GEMINI_API_KEY not set, skipping API test")
+        print("⚠️  GROQ_API_KEY not set, skipping API test")
         return True
     
     try:
-        from google import genai
-        client = genai.Client(api_key=api_key)
-        print("✅ Gemini API client created successfully")
+        from groq_client import create_groq_client
+        create_groq_client(api_key)
+        print("✅ Groq API client created successfully")
         return True
     except Exception as e:
-        print(f"❌ Failed to connect to Gemini API: {e}")
+        print(f"❌ Failed to create Groq API client: {e}")
         return False
 
 def test_file_creation():

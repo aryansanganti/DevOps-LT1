@@ -1,6 +1,6 @@
 # Build requirements for DevO Chat standalone executable
 pyinstaller==6.3.0
-google-generativeai>=0.3.0
+groq>=0.9.0
 rich>=13.0.0
 click>=8.0.0
 python-dotenv>=1.0.0

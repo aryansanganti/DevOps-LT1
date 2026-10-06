@@ -1,35 +1,3 @@
-                from rich.prompt import Confirm
-    from dotenv import load_dotenv
-from auto_setup import AutoSetupManager
-from datetime import datetime
-from pathlib import Path
-from rich.align import Align
-from rich.columns import Columns
-from rich.console import Console
-from rich.layout import Layout
-from rich.live import Live
-from rich.markdown import Markdown
-from rich.panel import Panel
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.prompt import Prompt
-from rich.spinner import Spinner
-from rich.syntax import Syntax
-from rich.table import Table
-from rich.text import Text
-from templates import get_dockerfile_template
-from typing import Dict, List, Optional, Any
-from utils import (
-import asyncio
-import click
-import google.generativeai as genai
-import json
-import os
-import shutil
-import subprocess
-import sys
-import tempfile
-import traceback
-
 #!/usr/bin/env python3
 """
 DevO Chat - Unified Interactive AI Assistant
@@ -37,18 +5,34 @@ A comprehensive conversational interface for repository analysis, code suggestio
 dependency management, containerization, and all development tasks in one place.
 """
 
+import click
+import json
+import os
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, Optional
 
+from auto_setup import AutoSetupManager
+from groq_client import create_groq_client, generate_text
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.panel import Panel
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.prompt import Confirm, Prompt
+from rich.table import Table
+from utils import (
+    detect_language_from_files,
+    detect_framework_from_files,
+    detect_package_manager,
+    extract_dependencies,
+)
 
 # Load environment variables
 try:
+    from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
-    self.log(f"Exception occurred: {e}", "ERROR")
-
-# Import from existing modules
-    detect_language_from_files, detect_framework_from_files, 
-    detect_package_manager, extract_dependencies
-)
+    pass
 
 console = Console()
 
@@ -63,9 +47,7 @@ class DevOChatSession:
         self.repo_context = None
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         
-        # Initialize Gemini
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("gemini-2.5-flash")
+        self.model = create_groq_client(api_key)
         
         # Initialize auto setup manager
         self.auto_setup = AutoSetupManager(api_key)
@@ -76,7 +58,7 @@ class DevOChatSession:
         console.print(Panel.fit(
             f"🚀 [bold green]DevO Chat Assistant Initialized[/bold green]\n"
             f"📁 Repository: {self.repo_path.name}\n"
-            f"🤖 AI Model: Gemini 2.5 Flash\n"
+            f"🤖 AI Model: Groq ({os.getenv('GROQ_MODEL', 'qwen/qwen3.8-27b')})\n"
             f"💬 Ready for all your development needs!\n\n"
             f"[dim]Type your questions naturally or use commands like:[/dim]\n"
             f"[cyan]• analyze my code[/cyan]\n"
@@ -340,8 +322,7 @@ Use `setup <repository_url>` to automatically:
                 enhanced_prompt = self._build_context_aware_prompt(user_input)
                 
                 # Get AI response
-                response = self.model.generate_content(enhanced_prompt)
-                ai_response = response.text
+                ai_response = generate_text(self.model, enhanced_prompt)
             
             # Add AI response to history
             self.chat_history.append({"role": "assistant", "content": ai_response})
@@ -492,7 +473,7 @@ def load_session(filepath: str) -> Optional[Dict]:
 
 @click.command()
 @click.option('--repo-path', '-r', default='.', help='Path to repository to analyze')
-@click.option('--api-key', '-k', help='Gemini API key (can also use GEMINI_API_KEY env var)')
+@click.option('--api-key', '-k', help='Groq API key (can also use GROQ_API_KEY env var)')
 @click.option('--save-session', '-s', help='Save session to file')
 @click.option('--load-session', '-l', help='Load session from file')
 def main(repo_path, api_key, save_session, load_session):
@@ -504,12 +485,12 @@ def main(repo_path, api_key, save_session, load_session):
     
     # Get API key from parameter, environment, or .env file
     if not api_key:
-        api_key = os.getenv('GEMINI_API_KEY')
+        api_key = os.getenv('GROQ_API_KEY')
     
     if not api_key:
         console.print("[red]❌ No API key provided![/red]")
-        console.print("[yellow]Please set GEMINI_API_KEY environment variable or use --api-key parameter[/yellow]")
-        console.print("[dim]Example: export GEMINI_API_KEY=your_api_key_here[/dim]")
+        console.print("[yellow]Please set GROQ_API_KEY environment variable or use --api-key parameter[/yellow]")
+        console.print("[dim]Example: export GROQ_API_KEY=your_groq_api_key_here[/dim]")
         return
     
     try:

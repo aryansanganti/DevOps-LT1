@@ -11,7 +11,7 @@
 ### 🔧 **Features Implemented:**
 
 #### 🤖 **Core Chat Functionality**
-- ✅ Interactive conversational interface with Gemini LLM
+- ✅ Interactive conversational interface with Groq LLM
 - ✅ Context-aware responses based on repository analysis
 - ✅ Persistent chat history within sessions
 - ✅ Natural language command processing
@@ -139,7 +139,7 @@ Would you like me to generate the Dockerfile?
 - ✅ Chat command help works
 - ✅ Repository context loading functional
 - ✅ Command parsing and routing working
-- ✅ AI integration with Gemini API operational
+- ✅ AI integration with Groq API operational
 - ✅ Session management implemented
 
 ## 🎉 **Ready for Use!**
@@ -153,7 +153,7 @@ The DevO Chat application is now fully functional and ready for interactive use.
 5. **Integrate with existing workflows** through the CLI
 
 ### **Next Steps for Users:**
-1. Set up API key: `export GEMINI_API_KEY=your_key_here`
+1. Set up API key: `export GROQ_API_KEY=your_key_here`
 2. Start chat: `uv run python chat.py --repo-path .`
 3. Try commands: `analyze`, `deps`, `security`, `containerize`
 4. Explore features: `help` for full command list

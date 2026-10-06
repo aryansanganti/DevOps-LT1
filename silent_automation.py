@@ -199,14 +199,14 @@ class SilentAutomationAgent:
             "--add-data utils.py;.",
             "--add-data auto_setup.py;.",
             "--add-data repocontainerizer.py;.",
-            "--collect-all google.generativeai",
+            "--collect-all groq",
             "--collect-all rich",
             "--collect-all click",
             "--collect-all yaml",
             "--collect-all requests",
             "--collect-all git",
             "--collect-all dotenv",
-            "--hidden-import=google.generativeai",
+            "--hidden-import=groq",
             "--hidden-import=rich",
             "--hidden-import=click",
             "--hidden-import=yaml",
@@ -311,7 +311,7 @@ class SilentAutomationAgent:
 
 ## Quick Start
 1. Run devochat.exe
-2. Set GEMINI_API_KEY environment variable
+2. Set GROQ_API_KEY environment variable
 3. Start chatting with your AI assistant!
 
 ## Commands

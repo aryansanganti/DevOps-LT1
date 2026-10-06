@@ -156,7 +156,7 @@ uv run python automation_manager.py package
 ```
 
 ### Environment Variables
-- `GEMINI_API_KEY` - API key for Gemini AI
+- `GROQ_API_KEY` - API key for Groq AI
 - `DEVOCHAT_CONFIG` - Custom configuration file path
 - `UV_LINK_MODE` - UV package linking mode
 

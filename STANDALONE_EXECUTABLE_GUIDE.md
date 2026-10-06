@@ -18,7 +18,7 @@
 - **Repository Analysis**: Automatic code analysis and suggestions
 - **Auto Setup**: Automatically clone repositories and install dependencies
 - **Containerization**: Generate Docker files and configurations
-- **AI-Powered**: Uses Gemini AI for intelligent code suggestions
+- **AI-Powered**: Uses Groq AI for intelligent code suggestions
 - **Dependency Management**: Detect and fix missing dependencies
 - **Session Management**: Save and load conversation sessions
 
@@ -59,7 +59,7 @@ dist\devochat.exe -l "session.json"
 
 ## Environment Variables
 
-- `GEMINI_API_KEY` - Your Gemini API key
+- `GROQ_API_KEY` - Your Groq API key
 - `DEVOCHAT_CONFIG` - Path to configuration file
 
 ## Configuration
@@ -94,7 +94,7 @@ The executable is approximately 50-60 MB and includes:
 ## Troubleshooting
 
 1. **Missing dependencies**: The executable includes all dependencies
-2. **API key issues**: Set GEMINI_API_KEY environment variable
+2. **API key issues**: Set GROQ_API_KEY environment variable
 3. **Permission errors**: Run as administrator if needed
 4. **Network issues**: Check internet connection for AI features
 

@@ -21,10 +21,10 @@
 3. **Set your API key**:
    ```bash
    # Windows
-   set GEMINI_API_KEY=your_api_key_here
+   set GROQ_API_KEY=your_api_key_here
    
    # Linux/Mac
-   export GEMINI_API_KEY=your_api_key_here
+   export GROQ_API_KEY=your_api_key_here
    ```
 
 ## Basic Usage
@@ -80,7 +80,7 @@ uv run python repo_containerizer.py containerize --help
 
 ## Troubleshooting
 
-1. **API Key Issues**: Make sure your Gemini API key is set correctly
+1. **API Key Issues**: Make sure your Groq API key is set correctly
 2. **Dependencies**: Run `uv sync` to install all dependencies
 3. **Python Version**: Requires Python 3.9+
 4. **Tests**: Run `uv run python -m pytest` to verify everything works

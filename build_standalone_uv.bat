@@ -36,7 +36,7 @@ echo.
 REM Install PyInstaller and build dependencies using uv
 echo Installing PyInstaller and build dependencies...
 uv add --dev pyinstaller
-uv add --dev google-generativeai
+uv add groq
 uv add --dev rich
 uv add --dev click
 uv add --dev python-dotenv

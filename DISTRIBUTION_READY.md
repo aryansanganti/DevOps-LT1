@@ -34,7 +34,7 @@ launch_devochat.bat
 ✅ **Repository Analysis** - Automatic code analysis and suggestions  
 ✅ **Auto Setup** - Clone repositories and install dependencies automatically  
 ✅ **Containerization** - Generate Docker files and configurations  
-✅ **AI-Powered** - Uses Gemini AI for intelligent code suggestions  
+✅ **AI-Powered** - Uses Groq AI for intelligent code suggestions  
 ✅ **Dependency Management** - Detect and fix missing dependencies  
 ✅ **Session Management** - Save and load conversation sessions  
 ✅ **Rich Terminal UI** - Beautiful formatting and progress indicators  
@@ -69,7 +69,7 @@ dist\devochat.exe
 dist\devochat.exe -r "C:\path\to\repo"
 
 # With API key
-dist\devochat.exe -k "your-gemini-api-key"
+dist\devochat.exe -k "your-groq-api-key"
 
 # Save session
 dist\devochat.exe -s "session.json"
@@ -98,7 +98,7 @@ The executable is completely standalone and can be:
 ## 🚀 Next Steps
 
 1. **Test the executable**: Run `dist\devochat.exe --help`
-2. **Set API key**: Export `GEMINI_API_KEY` environment variable
+2. **Set API key**: Export `GROQ_API_KEY` environment variable
 3. **Start chatting**: Run `dist\devochat.exe` and type your questions
 4. **Distribute**: Copy `devochat.exe` to any Windows machine
 

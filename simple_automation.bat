@@ -43,7 +43,7 @@ echo ✅ Cleanup complete
 
 echo.
 echo [5/6] Building standalone executable...
-call uv run pyinstaller --onefile --console --name devochat --add-data "sample-config.yml;." --add-data "templates.py;." --add-data "utils.py;." --add-data "auto_setup.py;." --add-data "repocontainerizer.py;." --collect-all google.generativeai --collect-all rich --collect-all click --collect-all yaml --collect-all requests --collect-all git --collect-all dotenv --hidden-import=google.generativeai --hidden-import=rich --hidden-import=click --hidden-import=yaml --hidden-import=requests --hidden-import=git --hidden-import=dotenv --hidden-import=os --hidden-import=sys --hidden-import=json --hidden-import=subprocess --hidden-import=pathlib chat.py
+call uv run pyinstaller --onefile --console --name devochat --add-data "sample-config.yml;." --add-data "templates.py;." --add-data "utils.py;." --add-data "auto_setup.py;." --add-data "repocontainerizer.py;." --collect-all groq --collect-all rich --collect-all click --collect-all yaml --collect-all requests --collect-all git --collect-all dotenv --hidden-import=groq --hidden-import=rich --hidden-import=click --hidden-import=yaml --hidden-import=requests --hidden-import=git --hidden-import=dotenv --hidden-import=os --hidden-import=sys --hidden-import=json --hidden-import=subprocess --hidden-import=pathlib chat.py
 if %errorlevel% neq 0 (
     echo ERROR: Build failed
     goto :error

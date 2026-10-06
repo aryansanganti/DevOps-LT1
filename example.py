@@ -1,4 +1,4 @@
-        from repo_containerizer import RepoContainerizer
+from repo_containerizer import RepoContainerizer
 from pathlib import Path
 import os
 import sys
@@ -15,8 +15,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 def main():
     """Example usage of RepoContainerizer"""
     
-    # Set the API key (replace with your actual API key)
-    api_key = "AIzaSyAwxg1aGIsvBSb17SAE-lFTz_Bh-lIDvrI"
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        print("Set GROQ_API_KEY before running this example.")
+        return
     
     print("🚀 RepoContainerizer Example")
     print("=" * 50)
@@ -75,7 +77,7 @@ def main():
     except Exception as e:
         print(f"❌ Error: {str(e)}")
         print("\nTroubleshooting:")
-        print("1. Make sure you have set the GEMINI_API_KEY environment variable")
+        print("1. Make sure you have set the GROQ_API_KEY environment variable")
         print("2. Check that all dependencies are installed: pip install -r requirements.txt")
         print("3. Ensure you have an internet connection for repository cloning")
         

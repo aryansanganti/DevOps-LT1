@@ -17,9 +17,9 @@ def test_repository_overview():
     print("Testing DevO Chat Repository Overview...")
     
     # Get API key
-    api_key = os.getenv('GEMINI_API_KEY')
+    api_key = os.getenv('GROQ_API_KEY')
     if not api_key:
-        print("❌ No API key found. Please set GEMINI_API_KEY environment variable.")
+        print("❌ No API key found. Please set GROQ_API_KEY environment variable.")
         return False
     
     try:

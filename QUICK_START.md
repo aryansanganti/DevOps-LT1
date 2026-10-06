@@ -1,7 +1,7 @@
 # RepoContainerizer Quick Start Guide
 
 ## Overview
-RepoContainerizer is an AI-powered tool that automatically analyzes GitHub repositories and generates Docker containerization files. It uses Google's Gemini AI to understand code structure, detect tech stacks, and create production-ready containers.
+RepoContainerizer is an AI-powered tool that automatically analyzes GitHub repositories and generates Docker containerization files. It uses Groq to understand code structure, detect tech stacks, and create production-ready containers.
 
 ## What it does
 1. **Clones** a GitHub repository
@@ -16,10 +16,10 @@ RepoContainerizer is an AI-powered tool that automatically analyzes GitHub repos
 ### 1. Set up your API key
 ```bash
 # Windows
-set GEMINI_API_KEY=AIzaSyAwxg1aGIsvBSb17SAE-lFTz_Bh-lIDvrI
+set GROQ_API_KEY=your_groq_api_key_here
 
 # Linux/Mac
-export GEMINI_API_KEY=AIzaSyAwxg1aGIsvBSb17SAE-lFTz_Bh-lIDvrI
+export GROQ_API_KEY=your_groq_api_key_here
 ```
 
 ### 2. Install dependencies
@@ -47,7 +47,7 @@ python repo_containerizer.py containerize REPO_URL [OPTIONS]
 - `--output, -o`: Output directory for generated files (default: ./output)
 - `--format, -f`: Config file format (yaml/json, default: yaml)
 - `--validate`: Build and validate the container
-- `--api-key`: Gemini API key (optional if env var is set)
+- `--api-key`: Groq API key (optional if env var is set)
 
 ### validate
 ```bash
@@ -105,7 +105,8 @@ output/
 
 ## Environment Variables
 
-- `GEMINI_API_KEY`: Your Google Gemini API key (required)
+- `GROQ_API_KEY`: Your Groq API key (required)
+- `GROQ_MODEL`: Groq model ID (optional; defaults to `qwen/qwen3.8-27b`)
 
 ## Troubleshooting
 
@@ -113,9 +114,9 @@ output/
 
 1. **API Key Error**
    ```
-   ❌ API key required. Set GEMINI_API_KEY environment variable
+   ❌ API key required. Set GROQ_API_KEY environment variable
    ```
-   **Solution**: Set the GEMINI_API_KEY environment variable
+   **Solution**: Set the GROQ_API_KEY environment variable
 
 2. **Import Errors**
    ```
@@ -198,7 +199,7 @@ jobs:
         run: |
           python repo_containerizer.py containerize https://github.com/${{ github.repository }} --output ./containers
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 ```
 
 ## Best Practices

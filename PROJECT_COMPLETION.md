@@ -20,7 +20,7 @@ Successfully created a **standalone command-line application** inspired by **War
 ### **3. AI-Powered Analysis**
 - **Intelligent Detection**: Automatically identifies languages, frameworks, and dependencies
 - **Context-Aware Generation**: Creates optimized Docker configurations
-- **Gemini Integration**: Uses Google's Gemini API for advanced analysis
+- **Groq Integration**: Uses the Groq API for advanced analysis
 - **Fallback Systems**: Works offline with built-in heuristics
 
 ### **4. Production-Ready Output**

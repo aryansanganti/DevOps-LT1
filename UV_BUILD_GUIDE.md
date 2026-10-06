@@ -32,7 +32,7 @@ If you prefer manual control:
 ```cmd
 # Install build dependencies
 uv add --dev pyinstaller
-uv add --dev google-generativeai
+uv add groq
 uv add --dev rich
 uv add --dev click
 uv add --dev python-dotenv
@@ -161,7 +161,7 @@ hiddenimports=[
 #### **Single File Distribution**
 ```cmd
 # Just distribute devochat.exe
-# Users need to set GEMINI_API_KEY environment variable
+# Users need to set GROQ_API_KEY environment variable
 ```
 
 #### **Complete Package**
